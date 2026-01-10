@@ -9,7 +9,7 @@ const firebaseConfig = {
   projectId: "progvaryum",
   storageBucket: "progvaryum.firebasestorage.app",
   messagingSenderId: "216122119996",
-  appId: "1:216122119996:web:0f54ce3cacbae1dfed3039"
+  appId: "1:216122119996:web:008e082e4936da19ed3039"
 };
 
 // Initialize Firebase
