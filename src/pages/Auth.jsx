@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { registerUser, loginUser } from "../firebase/authService";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase/config";
 
 const SEHIRLER = [
   "Adana", "Adıyaman", "Afyon", "Ağrı", "Amasya", "Ankara", "Antalya", "Artvin",
@@ -106,7 +109,7 @@ const s = {
   label: { display: 'block', marginBottom: '8px', fontWeight: '700', color: '#ffffff', fontSize: '14px' },
   labelSmall: { fontWeight: '400', color: '#94a3b8', fontSize: '12px', marginLeft: '5px' },
   input: { width: '100%', padding: '14px 16px', border: '2px solid rgba(255,255,255,0.15)', borderRadius: '12px', fontSize: '15px', boxSizing: 'border-box', background: 'rgba(255,255,255,0.08)', color: '#ffffff' },
-  select: { width: '100%', padding: '14px 16px', border: '2px solid rgba(255,255,255,0.15)', borderRadius: '12px', fontSize: '15px', boxSizing: 'border-box', background: '#1a2d3d', color: '#ffffff' },
+  select: { width: '100%', padding: '14px 16px', border: '2px solid rgba(255,255,255,0.15)', borderRadius: '12px', fontSize: '15px', boxSizing: 'border-box', background: 'rgba(255,255,255,0.08)', color: '#ffffff' },
   formRow: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' },
   toggleBtns: { display: 'flex', gap: '10px' },
   toggleBtn: { flex: 1, padding: '12px', border: '2px solid rgba(255,255,255,0.2)', borderRadius: '10px', background: 'rgba(255,255,255,0.05)', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#94a3b8' },
@@ -124,169 +127,225 @@ const s = {
   switchBtn: { background: 'none', border: 'none', color: '#667eea', fontWeight: '700', cursor: 'pointer' },
   avatarGrid: { display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '20px', flexWrap: 'wrap' },
   avatarOption: { width: '70px', height: '70px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem', cursor: 'pointer', border: '4px solid transparent', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' },
-  sectionTitle: { margin: '0 0 20px', color: '#ffffff', fontSize: '1.1rem', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '10px' }
+  sectionTitle: { margin: '0 0 20px', color: '#ffffff', fontSize: '1.1rem', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '10px' },
+  loading: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', color: '#667eea' }
 };
 
 export default function Auth({ onLogin, initialMode = "register" }) {
   const [mode, setMode] = useState(initialMode);
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [belirlenenSinif, setBelirlenenSinif] = useState(null);
 
   const [form, setForm] = useState({
-    isim: "", soyisim: "", kullaniciAdi: "", sifre: "", sifreTekrar: "", email: "", nickname: "",
-    yas: "", sehir: "", nerelerdanDuydunuz: "", hobiciYil: "", favoriBaliklar: [],
-    akvaryumSayisi: "", favoriMarka: "", akvaryumTipleri: [], avatar: ""
+    isim: "", soyisim: "", kullaniciAdi: "", nickname: "", email: "", sifre: "", sifreTekrar: "",
+    yas: "", sehir: "", nerelerdanDuydunuz: "",
+    hobiciYil: "", akvaryumSayisi: "", favoriBaliklar: [], favoriMarka: "",
+    akvaryumTipleri: [],
+    avatar: "🐠"
   });
 
-  const [loginForm, setLoginForm] = useState({ girisYontemi: "email", email: "", kullaniciAdi: "", sifre: "" });
+  const [loginForm, setLoginForm] = useState({
+    email: "", sifre: ""
+  });
 
-  const handleRegister = () => {
+  // Firebase ile Kayıt İşlemi
+  const handleRegister = async () => {
+    setLoading(true);
     setError("");
-    if (!form.isim || !form.soyisim) { setError("İsim ve soyisim zorunludur"); return; }
-    if (!form.kullaniciAdi || form.kullaniciAdi.length < 3) { setError("Kullanıcı adı en az 3 karakter olmalı"); return; }
-    if (!form.email || !form.email.includes("@")) { setError("Geçerli bir e-posta adresi girin"); return; }
-    if (!form.sifre || form.sifre.length < 6) { setError("Şifre en az 6 karakter olmalı"); return; }
-    if (form.sifre !== form.sifreTekrar) { setError("Şifreler eşleşmiyor"); return; }
-    if (!form.nickname) { setError("Nickname zorunludur"); return; }
 
-    const users = JSON.parse(localStorage.getItem("progvaryumUsers") || "[]");
-    if (users.find(u => u.email.toLowerCase() === form.email.toLowerCase())) { setError("Bu e-posta zaten kayıtlı"); return; }
-    if (users.find(u => u.kullaniciAdi.toLowerCase() === form.kullaniciAdi.toLowerCase())) { setError("Bu kullanıcı adı zaten alınmış"); return; }
-    if (users.find(u => u.nickname.toLowerCase() === form.nickname.toLowerCase())) { setError("Bu nickname zaten kullanılıyor"); return; }
+    try {
+      // Şifre kontrolü
+      if (form.sifre !== form.sifreTekrar) {
+        setError("Şifreler eşleşmiyor");
+        setLoading(false);
+        return;
+      }
 
-    setBelirlenenSinif(hesaplaHobiciSinifi(form));
-    setMode("avatar");
+      if (form.sifre.length < 6) {
+        setError("Şifre en az 6 karakter olmalı");
+        setLoading(false);
+        return;
+      }
+
+      // Firebase'e kayıt
+      const result = await registerUser(form.email, form.sifre, form.kullaniciAdi);
+
+      if (result.success) {
+        const user = result.user;
+        
+        // Hobici sınıfını hesapla
+        const sinif = hesaplaHobiciSinifi(form);
+        
+        // Ek kullanıcı bilgilerini Firestore'a kaydet
+        await setDoc(doc(db, "users", user.uid), {
+          uid: user.uid,
+          email: form.email,
+          isim: form.isim,
+          soyisim: form.soyisim,
+          kullaniciAdi: form.kullaniciAdi,
+          nickname: form.nickname,
+          yas: form.yas,
+          sehir: form.sehir,
+          nerelerdanDuydunuz: form.nerelerdanDuydunuz,
+          hobiciYil: form.hobiciYil,
+          akvaryumSayisi: form.akvaryumSayisi,
+          favoriBaliklar: form.favoriBaliklar,
+          favoriMarka: form.favoriMarka,
+          akvaryumTipleri: form.akvaryumTipleri,
+          avatar: form.avatar,
+          seviye: HOBICI_SINIFLARI[sinif]?.label || 'Çaylak',
+          seviyeKey: sinif,
+          olusturmaTarihi: new Date().toISOString(),
+          propimagelUrl: null
+        }, { merge: true });
+
+        // Başarılı giriş
+        onLogin({
+          uid: user.uid,
+          email: form.email,
+          kullaniciAdi: form.kullaniciAdi,
+          nickname: form.nickname,
+          avatar: form.avatar,
+          seviye: HOBICI_SINIFLARI[sinif]?.label || 'Çaylak'
+        });
+      } else {
+        setError(result.error);
+      }
+    } catch (err) {
+      console.error("Kayıt hatası:", err);
+      setError("Kayıt sırasında bir hata oluştu");
+    }
+
+    setLoading(false);
   };
 
-  const tamamlaKayit = () => {
-    if (!form.avatar) { setError("Lütfen bir avatar seçin"); return; }
-
-    const users = JSON.parse(localStorage.getItem("progvaryumUsers") || "[]");
-    const yeniKullanici = {
-      id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
-      ...form, hobiciSinif: belirlenenSinif, hobiciSeviye: belirlenenSinif, seviye: 1, exp: 0,
-      kayitTarihi: new Date().toISOString(), sonGiris: new Date().toISOString()
-    };
-
-    users.push(yeniKullanici);
-    localStorage.setItem("progvaryumUsers", JSON.stringify(users));
-
-    const forumUsers = JSON.parse(localStorage.getItem("forumUsers5") || "[]");
-    forumUsers.push({
-      id: yeniKullanici.id, ad: yeniKullanici.nickname, sifre: yeniKullanici.sifre,
-      email: yeniKullanici.email, avatar: yeniKullanici.avatar, isAdmin: false,
-      puan: 0, seviye: 1, exp: 0, hobiciSinif: belirlenenSinif, konuSay: 0, yorumSay: 0, kayit: yeniKullanici.kayitTarihi
-    });
-    localStorage.setItem("forumUsers5", JSON.stringify(forumUsers));
-    onLogin(yeniKullanici);
-  };
-
-  const handleLogin = () => {
+  // Firebase ile Giriş İşlemi
+  const handleLogin = async () => {
+    setLoading(true);
     setError("");
-    const users = JSON.parse(localStorage.getItem("progvaryumUsers") || "[]");
-    let user = loginForm.girisYontemi === "email"
-      ? users.find(u => u.email.toLowerCase() === loginForm.email.toLowerCase() && u.sifre === loginForm.sifre)
-      : users.find(u => u.kullaniciAdi.toLowerCase() === loginForm.kullaniciAdi.toLowerCase() && u.sifre === loginForm.sifre);
 
-    if (!user) { setError("Hatalı giriş bilgileri"); return; }
-    user.sonGiris = new Date().toISOString();
-    localStorage.setItem("progvaryumUsers", JSON.stringify(users));
-    onLogin(user);
+    if (!loginForm.email || !loginForm.sifre) {
+      setError("E-posta ve şifre gerekli");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const result = await loginUser(loginForm.email, loginForm.sifre);
+
+      if (result.success) {
+        const user = result.user;
+        const userData = result.userData;
+
+        // Başarılı giriş
+        onLogin({
+          uid: user.uid,
+          email: user.email,
+          kullaniciAdi: userData?.kullaniciAdi || user.displayName || 'Kullanıcı',
+          nickname: userData?.nickname || user.displayName || 'Kullanıcı',
+          avatar: userData?.avatar || '🐠',
+          seviye: userData?.seviye || 'Çaylak',
+          ...userData
+        });
+      } else {
+        setError(result.error);
+      }
+    } catch (err) {
+      console.error("Giriş hatası:", err);
+      setError("Giriş sırasında bir hata oluştu");
+    }
+
+    setLoading(false);
   };
 
-  // LOGIN
+  // GİRİŞ MODU
   if (mode === "login") {
     return (
       <div style={s.card}>
         <div style={s.header}>
-          <span style={s.icon}>🔐</span>
-          <h2 style={s.h2}>Giriş Yap</h2>
-          <p style={s.p}>Hesabınıza giriş yapın</p>
+          <span style={s.icon}>🐠</span>
+          <h2 style={s.h2}>Hoş Geldiniz!</h2>
+          <p style={s.p}>Progvaryum'a giriş yapın</p>
         </div>
 
-        {error && <div style={s.error}>{error}</div>}
+        {error && <div style={s.error}>⚠️ {error}</div>}
 
         <div style={s.formGroup}>
-          <label style={s.label}>Giriş Yöntemi</label>
-          <div style={s.toggleBtns}>
-            <button style={{...s.toggleBtn, ...(loginForm.girisYontemi === "email" ? s.toggleBtnActive : {})}} onClick={() => setLoginForm({...loginForm, girisYontemi: "email"})}>📧 E-posta</button>
-            <button style={{...s.toggleBtn, ...(loginForm.girisYontemi === "kullaniciAdi" ? s.toggleBtnActive : {})}} onClick={() => setLoginForm({...loginForm, girisYontemi: "kullaniciAdi"})}>👤 Kullanıcı Adı</button>
-          </div>
+          <label style={s.label}>E-posta</label>
+          <input 
+            type="email" 
+            placeholder="ornek@mail.com" 
+            style={s.input} 
+            value={loginForm.email} 
+            onChange={e => setLoginForm({...loginForm, email: e.target.value})}
+            disabled={loading}
+          />
         </div>
-
-        {loginForm.girisYontemi === "email" ? (
-          <div style={s.formGroup}>
-            <label style={s.label}>E-posta</label>
-            <input type="email" placeholder="ornek@mail.com" style={s.input} value={loginForm.email} onChange={e => setLoginForm({...loginForm, email: e.target.value})} />
-          </div>
-        ) : (
-          <div style={s.formGroup}>
-            <label style={s.label}>Kullanıcı Adı</label>
-            <input type="text" placeholder="kullaniciadi" style={s.input} value={loginForm.kullaniciAdi} onChange={e => setLoginForm({...loginForm, kullaniciAdi: e.target.value})} />
-          </div>
-        )}
-
         <div style={s.formGroup}>
           <label style={s.label}>Şifre</label>
-          <input type="password" placeholder="••••••" style={s.input} value={loginForm.sifre} onChange={e => setLoginForm({...loginForm, sifre: e.target.value})} onKeyPress={e => e.key === "Enter" && handleLogin()} />
+          <input 
+            type="password" 
+            placeholder="••••••••" 
+            style={s.input} 
+            value={loginForm.sifre} 
+            onChange={e => setLoginForm({...loginForm, sifre: e.target.value})}
+            disabled={loading}
+            onKeyPress={e => e.key === 'Enter' && handleLogin()}
+          />
         </div>
 
-        <button style={s.btnNext} onClick={handleLogin}>🚀 Giriş Yap</button>
-        <p style={s.switchMode}>Hesabınız yok mu? <button style={s.switchBtn} onClick={() => setMode("register")}>Üye Ol</button></p>
+        <button 
+          style={{...s.btnSubmit, opacity: loading ? 0.7 : 1}} 
+          onClick={handleLogin}
+          disabled={loading}
+        >
+          {loading ? (
+            <span style={s.loading}>⏳ Giriş yapılıyor...</span>
+          ) : (
+            '🚀 Giriş Yap'
+          )}
+        </button>
+
+        <p style={s.switchMode}>
+          Hesabınız yok mu? {' '}
+          <button style={s.switchBtn} onClick={() => { setMode("register"); setError(""); }}>
+            Üye Ol
+          </button>
+        </p>
       </div>
     );
   }
 
-  // AVATAR
-  if (mode === "avatar") {
-    const sinifBilgi = HOBICI_SINIFLARI[belirlenenSinif];
-    return (
-      <div style={{...s.card, maxWidth: '550px', textAlign: 'center'}}>
-        <div style={{marginBottom: '30px'}}>
-          <div style={{fontSize: '50px', marginBottom: '15px'}}>🎉</div>
-          <h2 style={s.h2}>Tebrikler!</h2>
-          <p style={s.p}>Sistem sizi değerlendirdi ve seçti:</p>
-          <div style={{display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '15px 30px', borderRadius: '50px', color: 'white', fontWeight: '700', fontSize: '1.2rem', background: sinifBilgi.color, marginTop: '20px', boxShadow: '0 8px 25px rgba(0,0,0,0.3)'}}>
-            <span style={{fontSize: '1.8rem'}}>{sinifBilgi.emoji}</span>
-            <span>{sinifBilgi.label}</span>
-          </div>
-          <p style={{...s.p, marginTop: '15px'}}>{sinifBilgi.description}</p>
-        </div>
-
-        <div style={{background: 'rgba(255,255,255,0.05)', borderRadius: '16px', padding: '25px', marginBottom: '25px', border: '1px solid rgba(255,255,255,0.1)'}}>
-          <h3 style={{margin: '0 0 8px', color: '#ffffff', fontWeight: '700'}}>Şimdi avatarınızı seçin</h3>
-          <div style={s.avatarGrid}>
-            {sinifBilgi.avatars.map((av, i) => (
-              <div key={i} style={{...s.avatarOption, borderColor: form.avatar === av ? sinifBilgi.color : 'transparent', transform: form.avatar === av ? 'scale(1.15)' : 'scale(1)'}} onClick={() => setForm({...form, avatar: av})}>{av}</div>
-            ))}
-          </div>
-        </div>
-
-        {error && <div style={s.error}>{error}</div>}
-        <button style={s.btnSubmit} onClick={tamamlaKayit}>✅ Kaydı Tamamla</button>
-      </div>
-    );
-  }
-
-  // REGISTER
+  // KAYIT MODU
   return (
-    <div style={{...s.card, maxWidth: '600px'}}>
+    <div style={s.card}>
       <div style={s.header}>
-        <span style={s.icon}>📝</span>
-        <h2 style={s.h2}>Üye Ol</h2>
-        <p style={s.p}>Adım {step} / 4</p>
+        <span style={s.icon}>🐠</span>
+        <h2 style={s.h2}>Progvaryum'a Katıl</h2>
+        <p style={s.p}>Akvaryum tutkunlarının platformu</p>
       </div>
 
       <div style={s.stepProgress}>
-        {[1,2,3,4].map(st => <div key={st} style={{...s.stepDot, ...(st <= step ? s.stepDotActive : {})}}>{st}</div>)}
+        {[1, 2, 3, 4].map(n => (
+          <div 
+            key={n} 
+            style={{
+              ...s.stepDot, 
+              ...(step >= n ? s.stepDotActive : {})
+            }}
+          >
+            {n}
+          </div>
+        ))}
       </div>
 
-      {error && <div style={s.error}>{error}</div>}
+      {error && <div style={s.error}>⚠️ {error}</div>}
 
       {step === 1 && (
         <div>
-          <h3 style={s.sectionTitle}>📋 Temel Bilgiler</h3>
+          <h3 style={s.sectionTitle}>📝 Hesap Bilgileri</h3>
           <div style={s.formRow}>
             <div style={s.formGroup}>
               <label style={s.label}>İsim <span style={{color: '#ff6b6b'}}>*</span></label>
@@ -319,7 +378,22 @@ export default function Auth({ onLogin, initialMode = "register" }) {
               <input type="password" placeholder="Tekrar" style={s.input} value={form.sifreTekrar} onChange={e => setForm({...form, sifreTekrar: e.target.value})} />
             </div>
           </div>
-          <button style={s.btnNext} onClick={() => { if (!form.isim || !form.soyisim || !form.kullaniciAdi || !form.nickname || !form.email || !form.sifre) { setError("Zorunlu alanları doldurun"); return; } if (form.sifre !== form.sifreTekrar) { setError("Şifreler eşleşmiyor"); return; } setError(""); setStep(2); }}>Devam →</button>
+          <button style={s.btnNext} onClick={() => { 
+            if (!form.isim || !form.soyisim || !form.kullaniciAdi || !form.nickname || !form.email || !form.sifre) { 
+              setError("Zorunlu alanları doldurun"); 
+              return; 
+            } 
+            if (form.sifre !== form.sifreTekrar) { 
+              setError("Şifreler eşleşmiyor"); 
+              return; 
+            } 
+            if (form.sifre.length < 6) {
+              setError("Şifre en az 6 karakter olmalı");
+              return;
+            }
+            setError(""); 
+            setStep(2); 
+          }}>Devam →</button>
         </div>
       )}
 
@@ -384,6 +458,7 @@ export default function Auth({ onLogin, initialMode = "register" }) {
               {BALIK_TURLERI.map(b => (
                 <button 
                   key={b} 
+                  type="button"
                   style={{...s.tagBtn, ...(form.favoriBaliklar.includes(b) ? s.tagBtnSelected : {})}} 
                   onClick={() => setForm({...form, favoriBaliklar: form.favoriBaliklar.includes(b) ? form.favoriBaliklar.filter(x => x !== b) : [...form.favoriBaliklar, b]})}
                 >
@@ -411,6 +486,7 @@ export default function Auth({ onLogin, initialMode = "register" }) {
             {AKVARYUM_TIPLERI.map(tip => (
               <button 
                 key={tip.id} 
+                type="button"
                 style={{...s.typeBtn, ...(form.akvaryumTipleri.includes(tip.id) ? s.typeBtnSelected : {})}} 
                 onClick={() => setForm({...form, akvaryumTipleri: form.akvaryumTipleri.includes(tip.id) ? form.akvaryumTipleri.filter(x => x !== tip.id) : [...form.akvaryumTipleri, tip.id]})}
               >
@@ -418,11 +494,26 @@ export default function Auth({ onLogin, initialMode = "register" }) {
               </button>
             ))}
           </div>
-          <button style={s.btnSubmit} onClick={handleRegister}>✅ Kaydı Tamamla</button>
+          <button 
+            style={{...s.btnSubmit, opacity: loading ? 0.7 : 1}} 
+            onClick={handleRegister}
+            disabled={loading}
+          >
+            {loading ? (
+              <span style={s.loading}>⏳ Kayıt yapılıyor...</span>
+            ) : (
+              '✅ Kaydı Tamamla'
+            )}
+          </button>
         </div>
       )}
 
-      <p style={s.switchMode}>Zaten üye misiniz? <button style={s.switchBtn} onClick={() => setMode("login")}>Giriş Yap</button></p>
+      <p style={s.switchMode}>
+        Zaten üye misiniz? {' '}
+        <button style={s.switchBtn} onClick={() => { setMode("login"); setError(""); }}>
+          Giriş Yap
+        </button>
+      </p>
     </div>
   );
 }
