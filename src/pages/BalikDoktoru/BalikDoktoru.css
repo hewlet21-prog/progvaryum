@@ -1,0 +1,857 @@
+/* =====================================================
+   🏥 BALIK DOKTORU - Ocean Theme Design System
+   JSX'e Uygun FULL VERSION
+   ===================================================== */
+
+/* ============ ANA SAYFA ============ */
+.balik-doktoru-sayfa {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* ============ HEADER ============ */
+.balik-doktoru-sayfa .doktor-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.balik-doktoru-sayfa .doktor-header h1 {
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  font-weight: 800;
+}
+
+.balik-doktoru-sayfa .doktor-header p {
+  color: #9CA3AF;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* ============ PROGRESS BAR ============ */
+.balik-doktoru-sayfa .progress-container {
+  margin-bottom: 30px;
+}
+
+.balik-doktoru-sayfa .progress-bar {
+  height: 6px;
+  background: rgba(15, 39, 68, 0.85);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.balik-doktoru-sayfa .progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2d7dd2, #1abc9c);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.balik-doktoru-sayfa .progress-steps {
+  display: flex;
+  justify-content: space-between;
+}
+
+.balik-doktoru-sayfa .progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.balik-doktoru-sayfa .step-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(26, 58, 92, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #9CA3AF;
+  transition: all 0.3s ease;
+}
+
+.balik-doktoru-sayfa .progress-step.active .step-dot {
+  background: linear-gradient(135deg, #2d7dd2, #1abc9c);
+  border-color: transparent;
+  color: white;
+}
+
+.balik-doktoru-sayfa .progress-step.current .step-dot {
+  box-shadow: 0 0 0 4px rgba(45, 125, 210, 0.3);
+}
+
+.balik-doktoru-sayfa .step-label {
+  font-size: 0.75rem;
+  color: #6B7280;
+  text-align: center;
+}
+
+.balik-doktoru-sayfa .progress-step.active .step-label {
+  color: #ffffff;
+}
+
+/* ============ WIZARD CONTAINER ============ */
+.balik-doktoru-sayfa .wizard-container {
+  background: rgba(20, 45, 80, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 30px;
+  backdrop-filter: blur(12px);
+  margin-bottom: 20px;
+}
+
+.balik-doktoru-sayfa .wizard-step {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ DR. PİPİ KARAKTERİ ============ */
+.balik-doktoru-sayfa .pipi-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: rgba(26, 58, 92, 0.5);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.balik-doktoru-sayfa .pipi-avatar {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.balik-doktoru-sayfa .pipi-fish {
+  font-size: 3rem;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.balik-doktoru-sayfa .pipi-accessories {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.balik-doktoru-sayfa .pipi-glasses {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+}
+
+.balik-doktoru-sayfa .pipi-coat {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+}
+
+.balik-doktoru-sayfa .pipi-speech {
+  flex: 1;
+}
+
+.balik-doktoru-sayfa .pipi-name {
+  font-weight: 700;
+  color: #2d7dd2;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.balik-doktoru-sayfa .pipi-speech p {
+  color: #E5E7EB;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ============ GİRİŞ EKRANI ============ */
+.balik-doktoru-sayfa .giris-step {
+  text-align: center;
+}
+
+.balik-doktoru-sayfa .giris-content {
+  padding: 20px 0;
+}
+
+.balik-doktoru-sayfa .giris-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.balik-doktoru-sayfa .giris-content h2 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin: 0 0 10px 0;
+}
+
+.balik-doktoru-sayfa .giris-content > p {
+  color: #9CA3AF;
+  margin: 0 0 25px 0;
+  font-size: 1rem;
+}
+
+.balik-doktoru-sayfa .giris-features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.balik-doktoru-sayfa .feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: rgba(26, 58, 92, 0.5);
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.balik-doktoru-sayfa .feature span:first-child {
+  font-size: 1.3rem;
+}
+
+.balik-doktoru-sayfa .feature span:last-child {
+  color: #E5E7EB;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.balik-doktoru-sayfa .btn-basla {
+  padding: 16px 40px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.balik-doktoru-sayfa .btn-basla:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+}
+
+/* ============ FORM CONTAINER ============ */
+.balik-doktoru-sayfa .form-container {
+  padding: 10px 0;
+}
+
+.balik-doktoru-sayfa .form-container h3 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin: 0 0 20px 0;
+}
+
+.balik-doktoru-sayfa .form-grup {
+  margin-bottom: 18px;
+}
+
+.balik-doktoru-sayfa .form-grup label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #9CA3AF;
+  margin-bottom: 8px;
+}
+
+.balik-doktoru-sayfa .form-grup input,
+.balik-doktoru-sayfa .form-grup select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  font-size: 1rem;
+  background: rgba(15, 39, 68, 0.85);
+  color: #ffffff;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.balik-doktoru-sayfa .form-grup input:focus,
+.balik-doktoru-sayfa .form-grup select:focus {
+  outline: none;
+  border-color: #2d7dd2;
+  box-shadow: 0 0 0 3px rgba(45, 125, 210, 0.2);
+}
+
+.balik-doktoru-sayfa .form-grup input::placeholder {
+  color: #6B7280;
+}
+
+/* ============ SORULAR CONTAINER ============ */
+.balik-doktoru-sayfa .sorular-container {
+  padding: 10px 0;
+}
+
+.balik-doktoru-sayfa .sorular-container h3 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin: 0 0 20px 0;
+}
+
+.balik-doktoru-sayfa .soru-satir {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(26, 58, 92, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  transition: all 0.2s ease;
+}
+
+.balik-doktoru-sayfa .soru-satir:hover {
+  background: rgba(26, 58, 92, 0.6);
+}
+
+.balik-doktoru-sayfa .soru-text {
+  color: #E5E7EB;
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.balik-doktoru-sayfa .cevap-butonlar {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.balik-doktoru-sayfa .cevap-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.balik-doktoru-sayfa .cevap-btn.evet {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.balik-doktoru-sayfa .cevap-btn.evet:hover,
+.balik-doktoru-sayfa .cevap-btn.evet.secili {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-color: transparent;
+}
+
+.balik-doktoru-sayfa .cevap-btn.hayir {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.balik-doktoru-sayfa .cevap-btn.hayir:hover,
+.balik-doktoru-sayfa .cevap-btn.hayir.secili {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border-color: transparent;
+}
+
+.balik-doktoru-sayfa .soru-select {
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(15, 39, 68, 0.85);
+  color: #ffffff;
+  font-size: 0.85rem;
+  min-width: 150px;
+}
+
+/* ============ SONUÇ EKRANI ============ */
+.balik-doktoru-sayfa .sonuc-step {
+  padding: 10px 0;
+}
+
+.balik-doktoru-sayfa .sonuc-container h3 {
+  color: #ffffff;
+  font-size: 1.3rem;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.balik-doktoru-sayfa .uyari-kutusu {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.balik-doktoru-sayfa .uyari-kutusu span {
+  font-size: 1.3rem;
+}
+
+.balik-doktoru-sayfa .uyari-kutusu p {
+  color: #f59e0b;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ============ HASTALIK LİSTESİ ============ */
+.balik-doktoru-sayfa .hastalik-listesi {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.balik-doktoru-sayfa .hastalik-karti {
+  background: rgba(26, 58, 92, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.balik-doktoru-sayfa .hastalik-karti:hover {
+  background: rgba(26, 58, 92, 0.7);
+  border-color: rgba(45, 125, 210, 0.3);
+}
+
+.balik-doktoru-sayfa .hastalik-karti.secili {
+  background: rgba(45, 125, 210, 0.15);
+  border-color: #2d7dd2;
+  box-shadow: 0 0 0 3px rgba(45, 125, 210, 0.2);
+}
+
+.balik-doktoru-sayfa .hastalik-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.balik-doktoru-sayfa .hastalik-emoji {
+  font-size: 2rem;
+}
+
+.balik-doktoru-sayfa .hastalik-info {
+  flex: 1;
+}
+
+.balik-doktoru-sayfa .hastalik-info h4 {
+  color: #ffffff;
+  font-size: 1.1rem;
+  margin: 0 0 3px 0;
+}
+
+.balik-doktoru-sayfa .hastalik-latin {
+  color: #9CA3AF;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.balik-doktoru-sayfa .hastalik-yuzde {
+  text-align: right;
+  min-width: 80px;
+}
+
+.balik-doktoru-sayfa .yuzde-bar {
+  height: 6px;
+  background: rgba(15, 39, 68, 0.85);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.balik-doktoru-sayfa .yuzde-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.balik-doktoru-sayfa .yuzde-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.balik-doktoru-sayfa .hastalik-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.balik-doktoru-sayfa .kategori-badge,
+.balik-doktoru-sayfa .tehlike-badge {
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* ============ HASTALIK DETAY ============ */
+.balik-doktoru-sayfa .hastalik-detay {
+  background: rgba(26, 58, 92, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.balik-doktoru-sayfa .detay-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.balik-doktoru-sayfa .detay-emoji {
+  font-size: 3rem;
+}
+
+.balik-doktoru-sayfa .detay-header h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin: 0 0 5px 0;
+}
+
+.balik-doktoru-sayfa .detay-latin {
+  color: #9CA3AF;
+  font-style: italic;
+  margin: 0;
+}
+
+.balik-doktoru-sayfa .detay-section {
+  margin-bottom: 20px;
+}
+
+.balik-doktoru-sayfa .detay-section h4 {
+  color: #2d7dd2;
+  font-size: 1rem;
+  margin: 0 0 12px 0;
+}
+
+.balik-doktoru-sayfa .detay-section p {
+  color: #E5E7EB;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.balik-doktoru-sayfa .detay-section ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #E5E7EB;
+}
+
+.balik-doktoru-sayfa .detay-section li {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.balik-doktoru-sayfa .detay-section.ayirt-edici {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.balik-doktoru-sayfa .detay-section.ayirt-edici h4 {
+  color: #a78bfa;
+}
+
+/* Tedavi Section */
+.balik-doktoru-sayfa .tedavi-section {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.balik-doktoru-sayfa .tedavi-section h4 {
+  color: #10b981;
+}
+
+.balik-doktoru-sayfa .tedavi-uyari {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(245, 158, 11, 0.15);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 15px;
+}
+
+.balik-doktoru-sayfa .tedavi-uyari span {
+  font-size: 1.1rem;
+}
+
+.balik-doktoru-sayfa .tedavi-uyari p {
+  color: #f59e0b;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.balik-doktoru-sayfa .tedavi-adimlari {
+  margin: 0 0 15px 0;
+  padding-left: 20px;
+  color: #E5E7EB;
+}
+
+.balik-doktoru-sayfa .tedavi-adimlari li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.balik-doktoru-sayfa .ilaclar {
+  margin-bottom: 15px;
+}
+
+.balik-doktoru-sayfa .ilaclar strong {
+  color: #ffffff;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.balik-doktoru-sayfa .ilac-listesi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.balik-doktoru-sayfa .ilac-badge {
+  padding: 6px 14px;
+  background: rgba(45, 125, 210, 0.2);
+  border: 1px solid rgba(45, 125, 210, 0.4);
+  border-radius: 20px;
+  color: #2d7dd2;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.balik-doktoru-sayfa .tedavi-sure {
+  color: #E5E7EB;
+  margin-bottom: 15px;
+}
+
+.balik-doktoru-sayfa .tedavi-sure strong {
+  color: #ffffff;
+}
+
+.balik-doktoru-sayfa .pipi-not {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(45, 125, 210, 0.1);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.balik-doktoru-sayfa .pipi-not span {
+  font-size: 1.2rem;
+}
+
+.balik-doktoru-sayfa .pipi-not p {
+  color: #E5E7EB;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ============ BOŞ SONUÇ ============ */
+.balik-doktoru-sayfa .sonuc-bos {
+  text-align: center;
+  padding: 30px;
+}
+
+.balik-doktoru-sayfa .bos-icon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+}
+
+.balik-doktoru-sayfa .sonuc-bos h3 {
+  color: #ffffff;
+  margin: 0 0 15px 0;
+}
+
+.balik-doktoru-sayfa .sonuc-bos p {
+  color: #9CA3AF;
+  margin: 0 0 10px 0;
+}
+
+.balik-doktoru-sayfa .sonuc-bos ul {
+  text-align: left;
+  max-width: 300px;
+  margin: 0 auto 20px;
+  color: #E5E7EB;
+}
+
+/* ============ BUTONLAR ============ */
+.balik-doktoru-sayfa .btn-yeniden {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #2d7dd2, #245a8a);
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.balik-doktoru-sayfa .btn-yeniden:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(45, 125, 210, 0.4);
+}
+
+/* ============ WIZARD NAV ============ */
+.balik-doktoru-sayfa .wizard-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.balik-doktoru-sayfa .btn-geri,
+.balik-doktoru-sayfa .btn-ileri {
+  padding: 12px 28px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.balik-doktoru-sayfa .btn-geri {
+  background: rgba(107, 114, 128, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #9CA3AF;
+}
+
+.balik-doktoru-sayfa .btn-geri:hover {
+  background: rgba(107, 114, 128, 0.5);
+  color: #ffffff;
+}
+
+.balik-doktoru-sayfa .btn-ileri {
+  background: linear-gradient(135deg, #2d7dd2, #245a8a);
+  border: none;
+  color: white;
+}
+
+.balik-doktoru-sayfa .btn-ileri:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 125, 210, 0.4);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .balik-doktoru-sayfa {
+    padding: 15px;
+  }
+  
+  .balik-doktoru-sayfa .doktor-header h1 {
+    font-size: 1.7rem;
+  }
+  
+  .balik-doktoru-sayfa .wizard-container {
+    padding: 20px;
+  }
+  
+  .balik-doktoru-sayfa .progress-steps {
+    display: none;
+  }
+  
+  .balik-doktoru-sayfa .pipi-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .balik-doktoru-sayfa .giris-features {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .balik-doktoru-sayfa .soru-satir {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .balik-doktoru-sayfa .cevap-butonlar {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .balik-doktoru-sayfa .hastalik-header {
+    flex-wrap: wrap;
+  }
+  
+  .balik-doktoru-sayfa .hastalik-yuzde {
+    width: 100%;
+    text-align: left;
+    margin-top: 10px;
+  }
+  
+  .balik-doktoru-sayfa .detay-header {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .balik-doktoru-sayfa .doktor-header h1 {
+    font-size: 1.4rem;
+  }
+  
+  .balik-doktoru-sayfa .pipi-fish {
+    font-size: 2.5rem;
+  }
+  
+  .balik-doktoru-sayfa .btn-basla {
+    width: 100%;
+    padding: 14px 20px;
+  }
+  
+  .balik-doktoru-sayfa .wizard-nav {
+    flex-direction: column;
+  }
+  
+  .balik-doktoru-sayfa .btn-geri,
+  .balik-doktoru-sayfa .btn-ileri {
+    width: 100%;
+  }
+}

@@ -1,0 +1,710 @@
+/* =====================================================
+   🐠 CANLI ENVANTERİ - Ocean Theme Design System
+   JSX'e Uygun FULL VERSION
+   ===================================================== */
+
+/* ============ ANA CONTAINER ============ */
+.canli-envanteri {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.canli-envanteri * {
+  box-sizing: border-box;
+}
+
+/* ============ PAGE HEADER ============ */
+.canli-envanteri .page-header {
+  margin-bottom: 25px;
+}
+
+.canli-envanteri .page-header h1 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  font-weight: 800;
+}
+
+.canli-envanteri .page-header p {
+  color: #9CA3AF;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ============ ÖZET KARTLAR ============ */
+.canli-envanteri .ozet-kartlar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.canli-envanteri .ozet-kart {
+  background: rgba(20, 45, 80, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(12px);
+}
+
+.canli-envanteri .ozet-kart:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  border-color: rgba(45, 125, 210, 0.4);
+}
+
+.canli-envanteri .ozet-kart.uyari {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.canli-envanteri .ozet-ikon {
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+
+.canli-envanteri .ozet-bilgi h3 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.canli-envanteri .ozet-bilgi p {
+  margin: 5px 0 0 0;
+  color: #9CA3AF;
+  font-size: 0.85rem;
+}
+
+/* ============ AKVARYUM BİLGİ KARTI ============ */
+.canli-envanteri .akvaryum-bilgi-kart {
+  background: rgba(20, 45, 80, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 25px;
+  backdrop-filter: blur(12px);
+}
+
+.canli-envanteri .akvaryum-bilgi-kart h2 {
+  margin: 0 0 20px 0;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.canli-envanteri .akvaryum-form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.canli-envanteri .form-grup {
+  display: flex;
+  flex-direction: column;
+}
+
+.canli-envanteri .form-grup label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #9CA3AF;
+  margin-bottom: 8px;
+}
+
+.canli-envanteri .form-grup input,
+.canli-envanteri .form-grup textarea {
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  font-size: 1rem;
+  background: rgba(15, 39, 68, 0.85);
+  color: #ffffff;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.canli-envanteri .form-grup input:focus,
+.canli-envanteri .form-grup textarea:focus {
+  outline: none;
+  border-color: #2d7dd2;
+  box-shadow: 0 0 0 3px rgba(45, 125, 210, 0.2);
+}
+
+.canli-envanteri .form-grup input::placeholder,
+.canli-envanteri .form-grup textarea::placeholder {
+  color: #6B7280;
+}
+
+.canli-envanteri .form-grup textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Form Butonları */
+.canli-envanteri .form-butonlar {
+  display: flex;
+  gap: 10px;
+}
+
+.canli-envanteri .btn-hesapla,
+.canli-envanteri .btn-kaydet,
+.canli-envanteri .btn-iptal {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.canli-envanteri .btn-hesapla {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+}
+
+.canli-envanteri .btn-hesapla:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.canli-envanteri .btn-kaydet {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.canli-envanteri .btn-kaydet:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.canli-envanteri .btn-iptal {
+  background: rgba(107, 114, 128, 0.3);
+  color: #9CA3AF;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.canli-envanteri .btn-iptal:hover {
+  background: rgba(107, 114, 128, 0.5);
+  color: #ffffff;
+}
+
+/* ============ EKLEME ALANI ============ */
+.canli-envanteri .ekleme-alani {
+  margin-bottom: 25px;
+}
+
+.canli-envanteri .btn-balik-ekle {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #2d7dd2, #245a8a);
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(45, 125, 210, 0.3);
+}
+
+.canli-envanteri .btn-balik-ekle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 125, 210, 0.4);
+}
+
+/* ============ BALIK FORM KARTI ============ */
+.canli-envanteri .balik-form-kart {
+  background: rgba(26, 58, 92, 0.6);
+  border: 2px dashed rgba(45, 125, 210, 0.4);
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.canli-envanteri .balik-form-kart h3 {
+  margin: 0 0 20px 0;
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+
+/* Rehber Seç Alan */
+.canli-envanteri .rehber-sec-alan {
+  margin-bottom: 20px;
+}
+
+.canli-envanteri .btn-rehber-sec {
+  padding: 12px 20px;
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 10px;
+  color: #a78bfa;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.canli-envanteri .btn-rehber-sec:hover {
+  background: rgba(139, 92, 246, 0.3);
+  color: #ffffff;
+}
+
+.canli-envanteri .secili-balik-onizleme {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(45, 125, 210, 0.15);
+  border: 1px solid rgba(45, 125, 210, 0.3);
+  border-radius: 12px;
+}
+
+.canli-envanteri .secili-balik-onizleme img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.canli-envanteri .secili-balik-onizleme div {
+  display: flex;
+  flex-direction: column;
+}
+
+.canli-envanteri .secili-balik-onizleme strong {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.canli-envanteri .secili-balik-onizleme span {
+  color: #9CA3AF;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+/* Cinsiyet ve Durum Grupları */
+.canli-envanteri .cinsiyet-grup,
+.canli-envanteri .durum-grup {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.canli-envanteri .durum-grup {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* ============ REHBER MODAL ============ */
+.canli-envanteri .rehber-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 22, 40, 0.92);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.canli-envanteri .rehber-modal {
+  background: rgba(20, 45, 80, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.canli-envanteri .rehber-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.canli-envanteri .rehber-modal-header h2 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.canli-envanteri .modal-kapat {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.canli-envanteri .modal-kapat:hover {
+  background: rgba(239, 68, 68, 0.5);
+}
+
+.canli-envanteri .rehber-modal-arama {
+  padding: 15px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.canli-envanteri .rehber-modal-arama input {
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: rgba(15, 39, 68, 0.85);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.95rem;
+}
+
+.canli-envanteri .rehber-modal-arama input:focus {
+  outline: none;
+  border-color: #2d7dd2;
+  box-shadow: 0 0 0 3px rgba(45, 125, 210, 0.2);
+}
+
+.canli-envanteri .rehber-modal-arama input::placeholder {
+  color: #6B7280;
+}
+
+.canli-envanteri .rehber-modal-liste {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px 25px;
+}
+
+.canli-envanteri .rehber-modal-liste::-webkit-scrollbar {
+  width: 6px;
+}
+
+.canli-envanteri .rehber-modal-liste::-webkit-scrollbar-track {
+  background: rgba(15, 39, 68, 0.5);
+}
+
+.canli-envanteri .rehber-modal-liste::-webkit-scrollbar-thumb {
+  background: rgba(45, 125, 210, 0.5);
+  border-radius: 3px;
+}
+
+.canli-envanteri .rehber-modal-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  background: rgba(26, 58, 92, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.canli-envanteri .rehber-modal-item:hover {
+  background: rgba(45, 125, 210, 0.3);
+  border-color: rgba(45, 125, 210, 0.4);
+}
+
+.canli-envanteri .rehber-modal-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.canli-envanteri .rehber-item-bilgi {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.canli-envanteri .rehber-item-bilgi strong {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.canli-envanteri .rehber-item-bilgi span {
+  color: #9CA3AF;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.canli-envanteri .rehber-item-detay {
+  display: flex;
+  gap: 12px;
+}
+
+.canli-envanteri .rehber-item-detay span {
+  font-size: 0.8rem;
+  color: #6B7280;
+}
+
+.canli-envanteri .rehber-bos {
+  text-align: center;
+  padding: 40px;
+  color: #9CA3AF;
+}
+
+.canli-envanteri .rehber-bos p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* ============ BALIK LİSTE KARTI ============ */
+.canli-envanteri .balik-liste-kart {
+  background: rgba(20, 45, 80, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 25px;
+  backdrop-filter: blur(12px);
+}
+
+.canli-envanteri .balik-liste-kart h2 {
+  margin: 0 0 20px 0;
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+.canli-envanteri .bos-mesaj {
+  text-align: center;
+  padding: 50px 20px;
+  color: #6B7280;
+}
+
+.canli-envanteri .bos-mesaj p {
+  margin: 0 0 8px 0;
+}
+
+/* ============ BALIK LİSTE GRID ============ */
+.canli-envanteri .balik-liste-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.canli-envanteri .envanter-balik-kart {
+  background: rgba(26, 58, 92, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.canli-envanteri .envanter-balik-kart:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  border-color: rgba(45, 125, 210, 0.3);
+}
+
+.canli-envanteri .envanter-balik-resim {
+  height: 140px;
+  background: linear-gradient(135deg, #1a3a5c, #0f2744);
+  overflow: hidden;
+}
+
+.canli-envanteri .envanter-balik-resim img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.canli-envanteri .envanter-balik-kart:hover .envanter-balik-resim img {
+  transform: scale(1.1);
+}
+
+.canli-envanteri .envanter-balik-bilgi {
+  padding: 15px;
+}
+
+.canli-envanteri .envanter-balik-bilgi h4 {
+  margin: 0 0 5px 0;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.canli-envanteri .envanter-balik-bilgi .latince {
+  display: block;
+  color: #6B7280;
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.canli-envanteri .envanter-sayilar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.canli-envanteri .envanter-sayilar span {
+  font-size: 0.9rem;
+  color: #9CA3AF;
+}
+
+.canli-envanteri .envanter-sayilar .toplam {
+  color: #2d7dd2;
+  font-weight: 700;
+}
+
+.canli-envanteri .hasta-badge {
+  display: inline-block;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.canli-envanteri .envanter-not {
+  color: #9CA3AF;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 10px 0 0 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.canli-envanteri .envanter-balik-aksiyonlar {
+  display: flex;
+  gap: 8px;
+  padding: 10px 15px 15px;
+}
+
+.canli-envanteri .envanter-balik-aksiyonlar button {
+  flex: 1;
+  padding: 10px;
+  background: rgba(15, 39, 68, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #9CA3AF;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.canli-envanteri .envanter-balik-aksiyonlar button:hover {
+  background: rgba(45, 125, 210, 0.2);
+  border-color: rgba(45, 125, 210, 0.3);
+  color: #ffffff;
+}
+
+.canli-envanteri .envanter-balik-aksiyonlar button:last-child:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+/* ============ YOĞUNLUK UYARISI ============ */
+.canli-envanteri .yogunluk-uyari {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-top: 20px;
+  color: #f59e0b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+  .canli-envanteri .ozet-kartlar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .canli-envanteri .akvaryum-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .canli-envanteri {
+    padding: 15px;
+  }
+  
+  .canli-envanteri .page-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .canli-envanteri .akvaryum-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .canli-envanteri .cinsiyet-grup {
+    grid-template-columns: 1fr;
+  }
+  
+  .canli-envanteri .durum-grup {
+    grid-template-columns: 1fr;
+  }
+  
+  .canli-envanteri .balik-liste-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .canli-envanteri .form-butonlar {
+    flex-direction: column;
+  }
+  
+  .canli-envanteri .btn-hesapla,
+  .canli-envanteri .btn-kaydet,
+  .canli-envanteri .btn-iptal {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .canli-envanteri .ozet-kartlar {
+    grid-template-columns: 1fr;
+  }
+  
+  .canli-envanteri .ozet-kart {
+    padding: 15px;
+  }
+  
+  .canli-envanteri .ozet-bilgi h3 {
+    font-size: 1.5rem;
+  }
+  
+  .canli-envanteri .rehber-modal {
+    max-height: 95vh;
+  }
+  
+  .canli-envanteri .rehber-modal-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .canli-envanteri .rehber-item-detay {
+    justify-content: center;
+  }
+}

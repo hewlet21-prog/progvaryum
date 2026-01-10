@@ -1,0 +1,479 @@
+/* ==================== BİTKİ KARTI DETAY SAYFASI ==================== */
+
+.bitki-kart-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a5f2a 0%, #2d8f4e 50%, #1e7a3c 100%);
+  padding: 30px;
+}
+
+/* Navigasyon */
+.bitki-kart-nav {
+  max-width: 1200px;
+  margin: 0 auto 25px auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.geri-btn {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 2px solid rgba(255,255,255,0.3);
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.geri-btn:hover {
+  background: rgba(255,255,255,0.3);
+  transform: translateX(-5px);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.95rem;
+}
+
+.breadcrumb span {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb span:hover:not(.separator):not(.aktif) {
+  color: white;
+  text-decoration: underline;
+}
+
+.breadcrumb .separator {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.breadcrumb .aktif {
+  color: white;
+  font-weight: 600;
+  cursor: default;
+}
+
+/* Ana İçerik */
+.bitki-kart-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 30px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+/* Sol Taraf */
+.bitki-kart-sol {
+  background: linear-gradient(135deg, #1a5f2a 0%, #2d8f4e 100%);
+  padding: 25px;
+}
+
+.bitki-resim-buyuk {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.bitki-resim-buyuk img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.tech-badge-buyuk {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 8px 18px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Hızlı Bilgiler */
+.hizli-bilgiler {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.hizli-bilgi-item {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.hb-ikon {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.hb-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.hb-deger {
+  font-size: 0.85rem;
+  color: white;
+  font-weight: 600;
+  display: block;
+}
+
+/* Sağ Taraf */
+.bitki-kart-sag {
+  padding: 30px;
+}
+
+/* Başlık */
+.bitki-baslik {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.bitki-baslik h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+}
+
+.latince-buyuk {
+  font-style: italic;
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin: 0 0 15px 0;
+}
+
+.baslik-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.kategori-badge {
+  background: linear-gradient(135deg, #1a5f2a 0%, #2d8f4e 100%);
+  color: white;
+  padding: 6px 15px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+}
+
+.konum-badge-buyuk {
+  background: #ecf0f1;
+  color: #7f8c8d;
+  padding: 6px 15px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+}
+
+/* Açıklama */
+.bitki-aciklama-box {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ecf0f1 100%);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-left: 4px solid #27ae60;
+}
+
+.bitki-aciklama-box p {
+  margin: 0;
+  color: #555;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* Bilgi Kartları */
+.bilgi-kartlari {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.bilgi-karti {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.bilgi-karti h3 {
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+  color: #1a5f2a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bilgi-satirlari {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bilgi-satir {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.bilgi-satir:last-child {
+  border-bottom: none;
+}
+
+.bs-label {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bs-deger {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+/* Uyumluluk Box */
+.uyumluluk-box {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid #a5d6a7;
+}
+
+.uyumluluk-box h3 {
+  margin: 0 0 15px 0;
+  color: #1a5f2a;
+  font-size: 1.1rem;
+}
+
+.uyumluluk-box ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.uyumluluk-box li {
+  padding: 8px 0;
+  color: #2e7d32;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.uyumluluk-box li:last-child {
+  border-bottom: none;
+}
+
+/* Benzer Bitkiler */
+.benzer-bitkiler-section {
+  max-width: 1200px;
+  margin: 40px auto 0 auto;
+}
+
+.benzer-bitkiler-section h2 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.benzer-bitkiler-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.benzer-bitki-kart {
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.benzer-bitki-kart:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.benzer-resim {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.benzer-resim img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.benzer-tech {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.benzer-bilgi {
+  padding: 12px;
+}
+
+.benzer-bilgi h4 {
+  margin: 0 0 4px 0;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.benzer-bilgi p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Bitki Bulunamadı */
+.bitki-bulunamadi {
+  text-align: center;
+  padding: 80px 20px;
+  color: white;
+}
+
+.hata-emoji {
+  font-size: 5rem;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.bitki-bulunamadi h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.bitki-bulunamadi p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+.geri-btn-buyuk {
+  background: white;
+  color: #1a5f2a;
+  border: none;
+  padding: 15px 35px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.geri-btn-buyuk:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .bitki-kart-main {
+    grid-template-columns: 1fr;
+  }
+
+  .bitki-kart-sol {
+    padding: 20px;
+  }
+
+  .bitki-resim-buyuk img {
+    height: 250px;
+  }
+
+  .hizli-bilgiler {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .bitki-kart-container {
+    padding: 15px;
+  }
+
+  .bitki-kart-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .bitki-baslik h1 {
+    font-size: 1.5rem;
+  }
+
+  .bilgi-kartlari {
+    grid-template-columns: 1fr;
+  }
+
+  .hizli-bilgiler {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .benzer-bitkiler-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .bitki-kart-sag {
+    padding: 20px;
+  }
+
+  .bilgi-satir {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .benzer-bitkiler-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .benzer-resim {
+    height: 100px;
+  }
+}
