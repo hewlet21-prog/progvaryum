@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDVA9agyjpHWkW3XTWLv69tLmZRhDUXhk8",
+  apiKey: "AIzaSyDVA9agyjpHWkW3XTWlv69tLmZRhDUXhk8",
   authDomain: "progvaryum.firebaseapp.com",
   projectId: "progvaryum",
   storageBucket: "progvaryum.firebasestorage.app",
