@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useSafeStorage } from "../../hooks/useSafeStorage";
+import { useAkvaryumStorage } from "../../hooks/useAkvaryumStorage";
 
 export default function SumpTemizlik() {
-  const [sumpTemizlik, setSumpTemizlik] = useSafeStorage("sumpTemizlik", []);
-  const [sumpCounter, setSumpCounter] = useSafeStorage("sumpCounter", 0);
+  const [sumpTemizlik, setSumpTemizlik] = useAkvaryumStorage("sumpTemizlik", []);
+  const [sumpCounter, setSumpCounter] = useAkvaryumStorage("sumpCounter", 0);
 
   const [form, setForm] = useState({
     tarih: new Date().toISOString().slice(0, 16),

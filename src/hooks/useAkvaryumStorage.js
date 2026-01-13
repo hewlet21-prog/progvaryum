@@ -1,14 +1,62 @@
 import { useState, useEffect, useCallback } from 'react';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { db, auth } from '../firebase/config';
+
+// Firebase'e kaydet (debounced)
+let saveTimeout = {};
+const saveToFirebase = async (storageKey, value) => {
+  const user = auth.currentUser;
+  console.log("🔥 Firebase User:", user?.email);
+  
+  if (!user) {
+    console.log("❌ Kullanıcı yok, Firebase'e kaydedilemedi");
+    return;
+  }
+
+  // Debounce - 2 saniye bekle
+  if (saveTimeout[storageKey]) {
+    clearTimeout(saveTimeout[storageKey]);
+  }
+
+  saveTimeout[storageKey] = setTimeout(async () => {
+    try {
+      console.log("📤 Firebase'e kaydediliyor:", storageKey);
+      const docRef = doc(db, 'users', user.uid, 'appData', storageKey);
+      await setDoc(docRef, {
+        key: storageKey,
+        value,
+        updatedAt: new Date().toISOString()
+      });
+      console.log(`✅ Firebase'e kaydedildi: ${storageKey}`);
+    } catch (error) {
+      console.error(`❌ Firebase kayıt hatası (${storageKey}):`, error);
+    }
+  }, 2000);
+};
+
+// Firebase'den oku
+const loadFromFirebase = async (storageKey) => {
+  const user = auth.currentUser;
+  if (!user) return null;
+
+  try {
+    const docRef = doc(db, 'users', user.uid, 'appData', storageKey);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      console.log(`📥 Firebase'den yüklendi: ${storageKey}`);
+      return docSnap.data().value;
+    }
+    return null;
+  } catch (error) {
+    console.error(`Firebase okuma hatası (${storageKey}):`, error);
+    return null;
+  }
+};
 
 /**
  * useAkvaryumStorage - Aktif akvaryuma özel veri saklama hook'u
- * 
- * Bu hook, her akvaryum için ayrı günlük verileri tutar.
- * Örnek: akvaryum1 için yemleme kayıtları ayrı, akvaryum2 için ayrı
- * 
- * @param {string} key - Veri anahtarı (örn: "yemleme", "testKiti")
- * @param {any} initialValue - Varsayılan değer
- * @returns {[any, Function, string]} - [değer, setter, aktifAkvaryumId]
+ * Firebase + localStorage senkronizasyonu
  */
 export function useAkvaryumStorage(key, initialValue) {
   // Aktif akvaryum ID'sini al
@@ -21,6 +69,7 @@ export function useAkvaryumStorage(key, initialValue) {
   };
 
   const [aktifId, setAktifId] = useState(getAktifAkvaryumId);
+  const [isFirebaseLoaded, setIsFirebaseLoaded] = useState(false);
 
   // Akvaryuma özel key oluştur
   const getStorageKey = useCallback((akvaryumId) => {
@@ -38,12 +87,49 @@ export function useAkvaryumStorage(key, initialValue) {
     }
   });
 
+  // Firebase'den veri yükle (bir kere)
+  useEffect(() => {
+    let isMounted = true;
+    
+    const loadFirebaseData = async () => {
+      const user = auth.currentUser;
+      const storageKey = getStorageKey(aktifId);
+      
+      if (!user || isFirebaseLoaded) return;
+
+      const firebaseValue = await loadFromFirebase(storageKey);
+      
+      if (firebaseValue !== null && isMounted) {
+        setValue(firebaseValue);
+        localStorage.setItem(storageKey, JSON.stringify(firebaseValue));
+      }
+      
+      if (isMounted) setIsFirebaseLoaded(true);
+    };
+
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user && !isFirebaseLoaded) {
+        loadFirebaseData();
+      }
+    });
+
+    if (auth.currentUser) {
+      loadFirebaseData();
+    }
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
+  }, [aktifId, getStorageKey, isFirebaseLoaded]);
+
   // Aktif akvaryum değişikliklerini dinle
   useEffect(() => {
     const handleStorageChange = () => {
       const yeniId = getAktifAkvaryumId();
       if (yeniId !== aktifId) {
         setAktifId(yeniId);
+        setIsFirebaseLoaded(false); // Yeni akvaryum için Firebase'den yükle
         // Yeni akvaryumun verilerini yükle
         try {
           const storageKey = getStorageKey(yeniId);
@@ -65,17 +151,27 @@ export function useAkvaryumStorage(key, initialValue) {
     };
   }, [aktifId, getStorageKey, initialValue]);
 
-  // Değer değiştiğinde localStorage'a kaydet
-  useEffect(() => {
-    try {
-      const storageKey = getStorageKey(aktifId);
-      localStorage.setItem(storageKey, JSON.stringify(value));
-    } catch (e) {
-      console.error('Storage error:', e);
-    }
-  }, [value, aktifId, getStorageKey]);
+  // Değer setter - hem localStorage hem Firebase'e kaydet
+  const setStoredValue = useCallback((newValue) => {
+    setValue((prev) => {
+      const valueToStore = typeof newValue === 'function' ? newValue(prev) : newValue;
+      
+      // localStorage'a kaydet
+      try {
+        const storageKey = getStorageKey(aktifId);
+        localStorage.setItem(storageKey, JSON.stringify(valueToStore));
+        
+        // Firebase'e kaydet
+        saveToFirebase(storageKey, valueToStore);
+      } catch (e) {
+        console.error('Storage error:', e);
+      }
+      
+      return valueToStore;
+    });
+  }, [aktifId, getStorageKey]);
 
-  return [value, setValue, aktifId];
+  return [value, setStoredValue, aktifId];
 }
 
 /**

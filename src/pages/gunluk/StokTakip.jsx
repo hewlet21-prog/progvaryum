@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSafeStorage } from "../../hooks/useSafeStorage";
+import { useAkvaryumStorage } from "../../hooks/useAkvaryumStorage";
 
 const STOK_KATEGORILERI = [
   { id: "yem", label: "🍽️ Yem", icon: "🍽️" },
@@ -11,7 +11,7 @@ const STOK_KATEGORILERI = [
 ];
 
 export default function StokTakip() {
-  const [stoklar, setStoklar] = useSafeStorage("stokTakip", []);
+  const [stoklar, setStoklar] = useAkvaryumStorage("stokTakip", []);
   const [formAcik, setFormAcik] = useState(false);
   const [yeniStok, setYeniStok] = useState({
     kategori: "yem",
