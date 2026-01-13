@@ -253,55 +253,14 @@
   }
 }
 
+/* ============ MOBİLDE TAMAMEN GİZLE ============ */
 @media (max-width: 768px) {
   .sidebar {
-    width: 100%;
-    min-width: 100%;
-    max-width: 100%;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: none !important;
   }
   
-  .sidebar-profile {
-    padding: 20px 15px;
-  }
-  
-  .profile-avatar {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
-  }
-  
-  .sidebar-nav {
-    padding: 10px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-  }
-  
-  .nav-item {
-    padding: 10px 14px;
-    flex-direction: column;
-    gap: 5px;
-    text-align: center;
-  }
-  
-  .nav-text {
-    font-size: 0.7rem;
-  }
-  
-  .nav-item.logout {
-    margin-top: 0;
-  }
-  
-  .nav-divider {
-    display: none;
-  }
-  
-  .sidebar-footer {
-    display: none;
+  .mobile-menu-toggle {
+    display: none !important;
   }
 }
 
@@ -326,12 +285,4 @@
 
 .mobile-menu-toggle:hover {
   transform: scale(1.1);
-}
-
-@media (max-width: 768px) {
-  .mobile-menu-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 }

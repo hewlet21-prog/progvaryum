@@ -1,0 +1,364 @@
+/* ============================================
+   GLOBAL MOBİL RESPONSIVE STILLER
+   Bu dosya src/styles/mobile.css konumunda olmalı
+   ve index.css veya App.css'e import edilmeli
+   ============================================ */
+
+/* ============ GENEL MOBİL KURALLAR ============ */
+@media (max-width: 768px) {
+  
+  /* Body ve Root */
+  html, body, #root {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
+  /* Ana Container */
+  .app-container,
+  .main-content,
+  .page-container {
+    padding-bottom: 90px !important; /* Bottom nav için boşluk */
+  }
+
+  /* Sidebar Mobilde Gizle */
+  .sidebar {
+    display: none !important;
+  }
+
+  /* Main Content Full Width */
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 16px !important;
+  }
+
+  /* Genel Kartlar */
+  .card,
+  .stat-card,
+  .summary-card,
+  .quick-btn,
+  .ilan-kart-pro,
+  .akvaryum-ozet-kart,
+  .kurulum-yok-banner {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Grid'leri Tek Kolon Yap */
+  .quick-stats,
+  .daily-summary-grid,
+  .quick-access-grid-expanded,
+  .ilan-grid-pro,
+  .pazar-secim-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  /* Quick Stats - 2'li Grid */
+  .quick-stats {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .quick-stats .stat-card {
+    padding: 14px 12px !important;
+  }
+
+  .quick-stats .stat-icon {
+    font-size: 24px !important;
+  }
+
+  .quick-stats .stat-info h3 {
+    font-size: 16px !important;
+  }
+
+  .quick-stats .stat-info p {
+    font-size: 11px !important;
+  }
+
+  /* Daily Summary Grid - 2'li */
+  .daily-summary-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .summary-card {
+    padding: 12px !important;
+  }
+
+  .summary-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+  }
+
+  .summary-icon {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 16px !important;
+  }
+
+  .summary-header h3 {
+    font-size: 12px !important;
+  }
+
+  /* Quick Access - 4'lü Grid */
+  .quick-access-grid-expanded {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .quick-btn {
+    padding: 12px 8px !important;
+    flex-direction: column !important;
+    min-height: 70px !important;
+  }
+
+  .quick-icon {
+    font-size: 22px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .quick-text {
+    font-size: 10px !important;
+    text-align: center !important;
+  }
+
+  /* Header */
+  .dashboard-header {
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 16px !important;
+    text-align: center !important;
+  }
+
+  .dashboard-header h1 {
+    font-size: 22px !important;
+  }
+
+  .dashboard-header .subtitle {
+    font-size: 11px !important;
+  }
+
+  .header-time {
+    text-align: center !important;
+  }
+
+  .time-display {
+    font-size: 18px !important;
+  }
+
+  .date-display {
+    font-size: 12px !important;
+  }
+
+  /* Akvaryum Wrapper */
+  .akvaryum-wrapper {
+    margin: 0 -16px !important;
+    border-radius: 0 !important;
+  }
+
+  /* Akvaryum Özet Kartı */
+  .akvaryum-ozet-kart {
+    padding: 16px !important;
+    margin: 16px 0 !important;
+  }
+
+  .ozet-header {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .ozet-stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .ozet-stat {
+    padding: 10px 8px !important;
+  }
+
+  .ozet-stat-icon {
+    font-size: 18px !important;
+  }
+
+  .ozet-stat-deger {
+    font-size: 13px !important;
+  }
+
+  .ozet-stat-etiket {
+    font-size: 9px !important;
+  }
+
+  /* Balık Chip'leri */
+  .balik-chip-container {
+    flex-wrap: wrap !important;
+  }
+
+  .balik-mini-chip {
+    font-size: 10px !important;
+    padding: 4px 8px !important;
+  }
+
+  /* Section Headers */
+  .section h2 {
+    font-size: 16px !important;
+  }
+
+  .section-header-pro h2 {
+    font-size: 16px !important;
+  }
+
+  .section-header-pro p {
+    font-size: 11px !important;
+  }
+
+  /* Pazar Yeri İlan Kartları */
+  .ilan-grid-pro {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .ilan-kart-pro {
+    flex-direction: row !important;
+    height: auto !important;
+    min-height: 120px !important;
+  }
+
+  .ilan-resim-pro {
+    width: 120px !important;
+    min-width: 120px !important;
+    height: 120px !important;
+  }
+
+  .ilan-icerik-pro {
+    flex: 1 !important;
+    padding: 12px !important;
+  }
+
+  .ilan-baslik-pro {
+    font-size: 14px !important;
+  }
+
+  .ilan-aciklama-pro {
+    font-size: 11px !important;
+    display: none !important;
+  }
+
+  .ilan-fiyat-pro .fiyat-deger {
+    font-size: 16px !important;
+  }
+
+  /* Pazar Seçim Kartları */
+  .pazar-secim-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .pazar-secim-kart {
+    padding: 20px !important;
+  }
+
+  .secim-icon {
+    font-size: 36px !important;
+  }
+
+  .pazar-secim-kart h2 {
+    font-size: 18px !important;
+  }
+
+  /* Butonlar */
+  .tumu-goster-btn,
+  .secim-btn,
+  .pazar-git-btn,
+  .ilan-ekle-btn {
+    min-height: 48px !important;
+    font-size: 14px !important;
+    padding: 12px 20px !important;
+  }
+
+  /* Form Elemanları */
+  input, select, textarea {
+    min-height: 48px !important;
+    font-size: 16px !important; /* iOS zoom engeller */
+    padding: 12px 16px !important;
+  }
+
+  /* Modaller */
+  .modal-overlay {
+    padding: 16px !important;
+  }
+
+  .modal-content {
+    max-height: 85vh !important;
+    border-radius: 16px !important;
+  }
+
+  /* Scrollbar Gizle */
+  ::-webkit-scrollbar {
+    width: 0 !important;
+    display: none !important;
+  }
+}
+
+/* ============ KÜÇÜK MOBİL (iPhone SE vb.) ============ */
+@media (max-width: 375px) {
+  .main-content {
+    padding: 12px !important;
+  }
+
+  .quick-stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .daily-summary-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .quick-access-grid-expanded {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .ozet-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .dashboard-header h1 {
+    font-size: 18px !important;
+  }
+}
+
+/* ============ TABLET ============ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sidebar {
+    width: 80px !important;
+  }
+
+  .sidebar .menu-label {
+    display: none !important;
+  }
+
+  .main-content {
+    margin-left: 80px !important;
+  }
+}
+
+/* ============ SAFE AREA (Notch'lu Telefonlar) ============ */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  @media (max-width: 768px) {
+    .app-container,
+    .main-content {
+      padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
+    }
+  }
+}

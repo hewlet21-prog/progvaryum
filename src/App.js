@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import './design-system.css';
+import './styles/mobile.css';
 import Sidebar from "./components/Sidebar";
+import BottomNavigation from "./components/BottomNavigation";
 import Auth from "./pages/Auth";
 
 // Sayfalar
@@ -21,6 +23,7 @@ import EmegiGecenler from './pages/EmegiGecenler';
 import PazarYeri from './pages/PazarYeri';
 import KurulumSihirbazi from './pages/KurulumSihirbazi/KurulumSihirbazi';
 import AkvaryumProfili from './pages/gunluk/AkvaryumProfili';
+import Profil from './pages/Profil';
 
 import "./App.css";
 
@@ -133,13 +136,16 @@ export default function App() {
         {/* Ana uygulama - Sidebar'lı */}
         <Route path="/*" element={
           <div className="app-container">
-            {/* SOL SIDEBAR */}
+            {/* SOL SIDEBAR - Mobilde Gizli */}
             <Sidebar 
               kullanici={aktifKullanici} 
               onLogout={handleLogout} 
               onAuthModalAc={openAuthModal}
               akvaryumKurulumu={akvaryumKurulumu}
             />
+
+            {/* ALT NAVİGASYON - Sadece Mobilde Görünür */}
+            <BottomNavigation />
 
             {/* SAĞ İÇERİK ALANI */}
             <div className="main-content">
@@ -227,6 +233,18 @@ export default function App() {
                     <Route path="/balik-tartisi" element={<Navigate to="/" />} />
                   </>
                 )}
+                
+                {/* Profil - Herkes için */}
+                <Route 
+                  path="/profil" 
+                  element={
+                    <Profil 
+                      kullanici={aktifKullanici}
+                      onLogout={handleLogout}
+                      onAuthModalAc={openAuthModal}
+                    />
+                  } 
+                />
                 
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
