@@ -7,13 +7,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 70px;
-  background: linear-gradient(180deg, #0d1b2a 0%, #0a1520 100%);
-  border-top: 1px solid rgba(78, 205, 196, 0.2);
-  padding: 8px 0;
-  padding-bottom: env(safe-area-inset-bottom, 8px);
+  height: 65px;
+  background: linear-gradient(180deg, rgba(13, 27, 42, 0.98) 0%, rgba(10, 22, 35, 1) 100%);
+  border-top: 1px solid rgba(78, 205, 196, 0.15);
+  padding: 6px 0;
+  padding-bottom: env(safe-area-inset-bottom, 6px);
   z-index: 9999;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
 }
 
 /* Mobilde Göster */
@@ -32,26 +33,27 @@
   justify-content: center;
   background: transparent;
   border: none;
-  padding: 6px 12px;
+  padding: 4px 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-width: 60px;
-  border-radius: 12px;
+  min-width: 50px;
+  border-radius: 10px;
+  position: relative;
 }
 
 .bottom-nav-item:active {
-  transform: scale(0.95);
+  transform: scale(0.92);
   background: rgba(78, 205, 196, 0.1);
 }
 
 .bottom-nav-icon {
-  font-size: 24px;
-  margin-bottom: 4px;
+  font-size: 22px;
+  margin-bottom: 2px;
   transition: transform 0.2s ease;
 }
 
 .bottom-nav-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.5);
   transition: color 0.2s ease;
@@ -63,12 +65,28 @@
 }
 
 .bottom-nav-item.active .bottom-nav-icon {
-  transform: scale(1.1);
+  transform: scale(1.15);
 }
 
 .bottom-nav-item.active .bottom-nav-label {
   color: #4ecdc4;
   font-weight: 600;
+}
+
+/* Kilitli Durum */
+.bottom-nav-item.locked {
+  opacity: 0.5;
+}
+
+.bottom-nav-item.locked .bottom-nav-label {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.lock-badge {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 8px;
 }
 
 /* Hover - Desktop için */

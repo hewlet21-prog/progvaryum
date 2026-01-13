@@ -145,7 +145,7 @@ export default function App() {
             />
 
             {/* ALT NAVİGASYON - Sadece Mobilde Görünür */}
-            <BottomNavigation />
+            <BottomNavigation kullanici={aktifKullanici} />
 
             {/* SAĞ İÇERİK ALANI */}
             <div className="main-content">

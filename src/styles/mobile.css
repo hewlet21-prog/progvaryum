@@ -33,6 +33,31 @@
     padding: 16px !important;
   }
 
+  /* Akvaryum Wrapper - ORTALA */
+  .akvaryum-wrapper {
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .akvaryum-wrapper canvas,
+  .akvaryum-wrapper video,
+  .akvaryum-wrapper > div {
+    margin: 0 auto !important;
+    display: block !important;
+  }
+
+  /* Dashboard Header - ORTALA */
+  .dashboard-header {
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
   /* Genel Kartlar */
   .card,
   .stat-card,
