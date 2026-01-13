@@ -26,8 +26,7 @@ export default function Sidebar({ kullanici, onLogout, onAuthModalAc }) {
     { path: "/balik-uyumluluk", icon: "🤖", label: "Balığım Uyumlu Mu?", kilitli: true },
     { path: "/balik-doktoru", icon: "🏥", label: "Balık Doktoru", kilitli: true },
     { path: "/balik-tartisi", icon: "⚖️", label: "Balık Tartısı", kilitli: true },
-    { path: "/forum", icon: "💬", label: "Forum", kilitli: true },
-    { path: "/pazar-yeri", icon: "🛒", label: "Pazar Yeri", kilitli: false }, // Herkese açık
+    { path: "/pazar-yeri", icon: "🐠", label: "Balık Satış Bilgileri (Nerede Bulurum)", kilitli: false },
   ];
 
   const handleLockedClick = () => {

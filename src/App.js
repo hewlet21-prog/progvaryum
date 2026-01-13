@@ -16,7 +16,6 @@ import BitkiKarti from "./pages/bitkiRehberi/BitkiKarti";
 import BalikUyumluluk from './pages/BalikUyumluluk/BalikUyumluluk';
 import BitkiRehberi from "./pages/bitkiRehberi/BitkiRehberi";
 import BalikDoktoru from './pages/BalikDoktoru/BalikDoktoru';
-import Forum from './pages/Forum';
 import BalikTartisi from './pages/BalikTartisi';
 import EmegiGecenler from './pages/EmegiGecenler';
 import PazarYeri from './pages/PazarYeri';
@@ -216,15 +215,6 @@ export default function App() {
                       } 
                     />
                     <Route path="/balik-tartisi" element={<BalikTartisi />} />
-                    <Route 
-                      path="/forum" 
-                      element={
-                        <Forum 
-                          kullanici={aktifKullanici} 
-                          onAuthModalAc={openAuthModal} 
-                        />
-                      } 
-                    />
                   </>
                 ) : (
                   <>
@@ -235,7 +225,6 @@ export default function App() {
                     <Route path="/balik-uyumluluk" element={<Navigate to="/" />} />
                     <Route path="/balik-doktoru" element={<Navigate to="/" />} />
                     <Route path="/balik-tartisi" element={<Navigate to="/" />} />
-                    <Route path="/forum" element={<Navigate to="/" />} />
                   </>
                 )}
                 

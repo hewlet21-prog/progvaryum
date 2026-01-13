@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAkvaryumStorage, getAktifAkvaryumId } from "../hooks/useAkvaryumStorage";
 import AquariumVideoCanvas from "../components/AquariumVideoCanvas";
@@ -8,7 +8,6 @@ import "./Dashboard.css";
 
 export default function Dashboard({ kullanici, onAuthModalAc, akvaryumKurulumu }) {
   const navigate = useNavigate();
-  const chatContainerRef = useRef(null);
 
   // Aktif akvaryum ID'si
   const [aktifAkvaryumId, setAktifAkvaryumId] = useState(getAktifAkvaryumId());
@@ -41,15 +40,8 @@ export default function Dashboard({ kullanici, onAuthModalAc, akvaryumKurulumu }
   const [sumpCounter] = useAkvaryumStorage("sumpCounter", 0);
   const [gubreleme] = useAkvaryumStorage("gubreleme", []);
 
-  // Forum verileri (global - akvaryuma özel değil)
-  const [forumKonular, setForumKonular] = useState([]);
-  const [forumMesajlar, setForumMesajlar] = useState([]);
-
   // Pazar Yeri verileri (global)
   const [pazarIlanlar, setPazarIlanlar] = useState([]);
-
-  // Chat input
-  const [chatMesaj, setChatMesaj] = useState("");
 
   const [yemRemaining, setYemRemaining] = useState({ text: "Başlatılmadı", status: "neutral" });
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -70,13 +62,9 @@ export default function Dashboard({ kullanici, onAuthModalAc, akvaryumKurulumu }
       });
     }
     
-    // Forum ve pazar verilerini yükle (global)
+    // Pazar verilerini yükle (global)
     try {
-      const forum = JSON.parse(localStorage.getItem('forumKonular5') || '[]');
-      const chat = JSON.parse(localStorage.getItem('forumChat5') || '[]');
       const ilanlar = JSON.parse(localStorage.getItem('pazarYeriIlanlar') || '[]');
-      setForumKonular(forum);
-      setForumMesajlar(chat);
       setPazarIlanlar(ilanlar);
     } catch (e) {
       console.error('Veri yükleme hatası:', e);
@@ -100,13 +88,6 @@ export default function Dashboard({ kullanici, onAuthModalAc, akvaryumKurulumu }
     }, 1000);
     return () => clearInterval(timer);
   }, []);
-
-  // Chat scroll to bottom
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  }, [forumMesajlar]);
 
   // Yemleme sayacı - TEK SAYAÇ
   useEffect(() => {
@@ -160,47 +141,6 @@ export default function Dashboard({ kullanici, onAuthModalAc, akvaryumKurulumu }
   const sonBudama = bitkiBudama.length > 0 ? bitkiBudama[0] : null;
   const sonStok = stokTakip.length > 0 ? stokTakip[0] : null;
   const sonGubreleme = gubreleme.length > 0 ? gubreleme[0] : null;
-
-  // Forum son konu
-  const sonForumKonu = forumKonular.length > 0 
-    ? [...forumKonular].sort((a, b) => new Date(b.tarih) - new Date(a.tarih))[0] 
-    : null;
-
-  // Son chat mesajları (son 15)
-  const sonChatMesajlar = forumMesajlar.length > 0 
-    ? [...forumMesajlar].slice(-15) 
-    : [];
-
-  // Chat mesaj gönder
-  const chatMesajGonder = () => {
-    if (!chatMesaj.trim()) return;
-    
-    // Misafir kontrolü
-    if (kullanici?.isMisafir) {
-      if (onAuthModalAc) onAuthModalAc("register");
-      return;
-    }
-
-    const yeniMesaj = {
-      id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
-      yazar: kullanici?.nickname || kullanici?.isim || "Anonim",
-      avatar: kullanici?.avatar || "👤",
-      msg: chatMesaj.trim(),
-      tarih: new Date().toISOString()
-    };
-
-    // Son 20 mesajı tut (forum ile aynı)
-    const yeniMesajlar = [...forumMesajlar, yeniMesaj].slice(-20);
-    setForumMesajlar(yeniMesajlar);
-    setChatMesaj("");
-  };
-
-  const handleChatKeyPress = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      chatMesajGonder();
-    }
-  };
 
   function getTimeAgo(dateString) {
     if (!dateString) return "Hiç yapılmadı";
@@ -673,107 +613,14 @@ export default function Dashboard({ kullanici, onAuthModalAc, akvaryumKurulumu }
         </div>
       </div>
 
-      {/* FORUM SON KONU */}
-      <div className="section">
-        <h2>💬 Forum - Son Konu</h2>
-        <div className="forum-son-konu" onClick={() => navigate('/forum')}>
-          {sonForumKonu ? (
-            <div className="forum-konu-kart">
-              <div className="forum-konu-header">
-                <span className="forum-kategori">{sonForumKonu.kategori || '💬 Genel'}</span>
-                <span className="forum-tarih">{getTimeAgo(sonForumKonu.tarih)}</span>
-              </div>
-              <h3 className="forum-konu-baslik">{sonForumKonu.baslik}</h3>
-              <p className="forum-konu-icerik">
-                {sonForumKonu.icerik?.substring(0, 150) || 'İçerik yok'}
-                {sonForumKonu.icerik?.length > 150 && '...'}
-              </p>
-              <div className="forum-konu-footer">
-                <span className="forum-yazar">
-                  {sonForumKonu.yazarAvatar || '👤'} {sonForumKonu.yazar || 'Anonim'}
-                </span>
-                <span className="forum-stats">
-                  💬 {sonForumKonu.yorumSayisi || 0} yorum
-                </span>
-              </div>
-            </div>
-          ) : (
-            <div className="forum-bos">
-              <span>📝</span>
-              <p>Henüz forum konusu yok</p>
-              <button onClick={(e) => { e.stopPropagation(); navigate('/forum'); }}>İlk Konuyu Aç →</button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* CANLI SOHBET - MESAJ YAZMA ÖZELLİĞİ İLE */}
-      <div className="section">
-        <h2>🗨️ Canlı Sohbet</h2>
-        <div className="canli-chat-container">
-          {/* Mesajlar */}
-          <div className="chat-mesajlar" ref={chatContainerRef}>
-            {sonChatMesajlar.length > 0 ? (
-              sonChatMesajlar.map((mesaj, idx) => (
-                <div key={mesaj.id || idx} className="chat-mesaj">
-                  <span className="chat-avatar">{mesaj.avatar || '👤'}</span>
-                  <div className="chat-icerik">
-                    <div className="chat-header">
-                      <span className="chat-yazar">{mesaj.yazar || 'Anonim'}</span>
-                      <span className="chat-zaman">{getTimeAgo(mesaj.tarih)}</span>
-                    </div>
-                    <p className="chat-metin">{mesaj.msg}</p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="chat-bos">
-                <span>💬</span>
-                <p>Henüz mesaj yok, ilk mesajı sen yaz!</p>
-              </div>
-            )}
-          </div>
-
-          {/* Mesaj Yazma Alanı */}
-          <div className="chat-input-container">
-            {kullanici?.isMisafir ? (
-              <div className="chat-misafir-uyari" onClick={() => onAuthModalAc && onAuthModalAc("register")}>
-                <span>🔒</span>
-                <p>Mesaj yazmak için üye olun</p>
-              </div>
-            ) : (
-              <div className="chat-input-wrapper">
-                <span className="chat-input-avatar">{kullanici?.avatar || '👤'}</span>
-                <input
-                  type="text"
-                  className="chat-input"
-                  placeholder="Mesajınızı yazın..."
-                  value={chatMesaj}
-                  onChange={(e) => setChatMesaj(e.target.value)}
-                  onKeyPress={handleChatKeyPress}
-                  maxLength={500}
-                />
-                <button 
-                  className="chat-gonder-btn"
-                  onClick={chatMesajGonder}
-                  disabled={!chatMesaj.trim()}
-                >
-                  Gönder
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* PAZAR YERİ SON İLANLAR - PROFESYONEL TASARIM */}
+      {/* CANLI SATIŞLAR - SON İLANLAR - PROFESYONEL TASARIM */}
       <div className="section pazar-section">
         <div className="section-header-pro">
           <div className="section-baslik">
-            <span className="section-icon">🛒</span>
+            <span className="section-icon">🐠</span>
             <div>
-              <h2>Pazar Yeri</h2>
-              <p>Son eklenen ilanlar</p>
+              <h2>Balık Satış Bilgileri</h2>
+              <p>Son eklenen ilanlar (Nerede Bulurum)</p>
             </div>
           </div>
           <button className="tumu-goster-btn" onClick={() => navigate('/pazar-yeri')}>
@@ -856,11 +703,11 @@ export default function Dashboard({ kullanici, onAuthModalAc, akvaryumKurulumu }
           ) : (
             <div className="pazar-bos-pro">
               <div className="bos-icerik">
-                <span className="bos-emoji">🛒</span>
+                <span className="bos-emoji">🐠</span>
                 <h4>Henüz İlan Yok</h4>
-                <p>Pazar yerinde henüz ilan bulunmuyor</p>
+                <p>Balık satış bilgilerinde henüz ilan bulunmuyor</p>
                 <button className="pazar-git-btn" onClick={() => navigate('/pazar-yeri')}>
-                  <span>🏪</span> Pazar Yerine Git
+                  <span>🐠</span> Balık Satış Bilgilerine Git
                 </button>
               </div>
             </div>
